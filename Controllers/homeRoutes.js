@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
          'post_url',
          'title',
          'created_at',
-         [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
       ],
       include: [
          {
@@ -28,9 +27,9 @@ router.get('/', (req, res) => {
             attributes: ['username']
          }
       ]
-   }).then(PostData => {
-         console.log(PostData[0]);
-         const posts = PostData.map(post => post.get({ plain: true }));
+   }).then(postData => {
+         console.log(postData[0]);
+         const posts = postData.map(post => post.get({ plain: true }));
          res.render('homepage', { 
             posts,
             loggedIn: req.session.loggedIn
@@ -61,7 +60,6 @@ router.get('/post/:id', (req, res) => {
        'post_url',
        'title',
        'created_at',
-       [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
      ],
      include: [
        {
@@ -77,8 +75,7 @@ router.get('/post/:id', (req, res) => {
          attributes: ['username']
        }
      ]
-   })
-     .then(dbPostData => {
+   }).then(dbPostData => {
        if (!dbPostData) {
          res.status(404).json({ message: 'No post found with this id' });
          return;
@@ -89,8 +86,8 @@ router.get('/post/:id', (req, res) => {
           post, 
           loggedIn: req.session.loggedIn
          });
-     })
-     .catch(err => {
+         
+     }).catch(err => {
        console.log(err);
        res.status(500).json(err);
      });

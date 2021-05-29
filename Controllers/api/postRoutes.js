@@ -37,8 +37,7 @@ router.get('/', (req, res) => {
         attributes: ['username']
       }
     ]
-  })
-    .then(dbPostData => res.json(dbPostData))
+  }).then(postData => res.json(postData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -81,13 +80,12 @@ router.get('/:id', (req, res) => {
         attributes: ['username']
       }
     ]
-  })
-    .then(dbPostData => {
-      if (!dbPostData) {
+  }).then(postData => {
+      if (!postData) {
         res.status(404).json({ message: 'No post found with this id' });
         return;
       }
-      res.json(dbPostData);
+      res.json(postData);
     })
     .catch(err => {
       console.log(err);
@@ -102,7 +100,7 @@ router.get('/:id', (req, res) => {
     post_url: req.body.post_url,
     user_id: req.session.user_id
   })
-    .then(dbPostData => res.json(dbPostData))
+    .then(postData => res.json(postData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -110,11 +108,11 @@ router.get('/:id', (req, res) => {
 });
 
 // PUT /api/posts/upvote
-router.put('/upvote', withAuth, (req, res) => {
+router.put('/upcomment', withAuth, (req, res) => {
   // make sure the session exists first
   if (req.session) {
-    Post.upvote({ ...req.body, user_id: req.session.user_id }, { Vote, Comment, User })
-      .then(updatedVoteData => res.json(updatedVoteData))
+    Post.update({ ...req.body, user_id: req.session.user_id }, {Comment, User })
+      .then(updatedCommentData => res.json(updatedCommentData))
       .catch(err => {
         console.log(err);
         res.status(500).json(err);
@@ -132,14 +130,12 @@ router.put('/:id', withAuth, (req, res) => {
       where: {
         id: req.params.id
       }
-    }
-  )
-    .then(dbPostData => {
-      if (!dbPostData) {
+    }).then(postData => {
+      if (!postData) {
         res.status(404).json({ message: 'No post found with this id' });
         return;
       }
-      res.json(dbPostData);
+      res.json(postData);
     })
     .catch(err => {
       console.log(err);
@@ -158,12 +154,12 @@ router.delete('/:id', (req, res) => {
         id: req.params.id
       }
   })
-    .then(dbPostData => {
-      if(!dbPostData) {
+    .then(postData => {
+      if(!postData) {
         res.status(404).json({ message: 'No post found with this id' });
         return;
       }
-      res.json(dbPostData);
+      res.json(postData);
     })
     .catch(err => {
       console.log(err);
