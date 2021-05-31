@@ -1,20 +1,16 @@
 const router = require('express').Router();
-const sequelize = require('../../config/connection');
-const { Comment, Post, User, Vote } = require('../../models');
+// const sequelize = require('../../config/connection');
+const { Comment, Post, User} = require('../../models');
 const withAuth = require('../../utils/auth');
 
 // get all users
 router.get('/', (req, res) => {
   Post.findAll({
     attributes: [
-      'id', 
-      'post_url', 
-      'title', 
+      'id',  
+      'title',
+      'content',
       'created_at',
-      [
-        sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'),
-        'vote_count'
-      ]
     ],
     order: [['created_at', 'DESC']],
     include: [
@@ -52,24 +48,14 @@ router.get('/:id', (req, res) => {
     },
     attributes: [
       'id', 
-      'post_url', 
+      'content', 
       'title', 
       'created_at',
-      [
-        sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'),
-        'vote_count'
-      ]
     ],
     include: [
       {
         model: Comment,
-        attributes: [
-          'id',
-          'comment_text',
-          'post_id',
-          'user_id',
-          'created_at'
-          ],
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
           include: {
             model: User,
             attributes: ['username']
@@ -97,29 +83,14 @@ router.get('/:id', (req, res) => {
  router.post('/', withAuth, (req, res) => {
   Post.create({
     title: req.body.title,
-    post_url: req.body.post_url,
     user_id: req.session.user_id
-  })
-    .then(postData => res.json(postData))
+
+  }).then(postData => res.json(postData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
 });
-
-// PUT /api/posts/upvote
-router.put('/upcomment', withAuth, (req, res) => {
-  // make sure the session exists first
-  if (req.session) {
-    Post.update({ ...req.body, user_id: req.session.user_id }, {Comment, User })
-      .then(updatedCommentData => res.json(updatedCommentData))
-      .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  }
-});
-
 // update a post
 router.put('/:id', withAuth, (req, res) => {
   Post.update(
@@ -145,9 +116,7 @@ router.put('/:id', withAuth, (req, res) => {
 
 // delete a post
 router.delete('/:id', (req, res) => {
-
-
-
+// Delete multiple instances, in this case just where the id has been selected
   Post.destroy(
     {
       where: {

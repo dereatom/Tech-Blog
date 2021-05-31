@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const sequelize = require('../config/connection');
+// const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
@@ -10,10 +10,9 @@ router.get('/', withAuth, (req, res) => {
       },
       attributes: [
          'id',
-         'post_url',
          'title',
-         'created_at',
-         [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+         'content',
+         'created_at' 
       ],
       include: [
          {
@@ -35,12 +34,11 @@ router.get('/', withAuth, (req, res) => {
             attributes: ['username']
          }
       ]
-   })
-      .then(dbPostData => {
-         const posts = dbPostData.map(post => post.get({ plain: true }));
+   }).then(postData => {
+         const posts = postData.map(post => post.get({ plain: true }));
          res.render('dashboard', { posts, loggedIn: true });
-      })
-      .catch(err => {
+
+      }).catch(err => {
          console.log(err);
          res.status(500).json(err);
       });
@@ -53,10 +51,9 @@ router.get('/edit/:id', withAuth, (req, res) => {
       },
       attributes: [
          'id',
-         'post_url',
          'title',
-         'created_at',
-         [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+         'content',
+         'created_at'
       ],
       include: [
          {
@@ -78,15 +75,17 @@ router.get('/edit/:id', withAuth, (req, res) => {
             attributes: ['username']
          }
       ]
-   })
-      .then(dbPostData => {
-         const post = dbPostData.get({ plain: true });
+   }).then(postData => {
+         const post = postData.get({ plain: true });
          res.render('edit-post', { post, loggedIn: true });
-      })
-      .catch(err => {
+      }).catch(err => {
          console.log(err);
          res.status(500).json(err);
       });
+});
+//  when a user clicks /new to add a post, render that page
+router.get('/new', (req, res) => {
+   res.render('add-post');
 });
 
 module.exports = router;
