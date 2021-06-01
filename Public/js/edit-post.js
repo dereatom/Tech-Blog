@@ -12,14 +12,8 @@ async function editFormHandler(event) {
       
       const response = await fetch(`/api/posts/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({
-          post_id: id,
-          title,
-          content
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: JSON.stringify({post_id: id, title,content}),
+        headers: {'Content-Type': 'application/json'}
       });
       
       if (response.ok) {
@@ -27,7 +21,5 @@ async function editFormHandler(event) {
       } else {
         alert(response.statusText);
       }
-
 }
-
 document.querySelector('.edit-post-form').addEventListener('submit', editFormHandler);

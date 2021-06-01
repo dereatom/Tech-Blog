@@ -1,7 +1,16 @@
 {{!-- partial for each individual comment --}}
-<div class="card">
-    <h4>{{comment_text}}</h4>
-    <div class="container">
-        <p class="post-text">{{user.username}}</p>
+<div class="comments">
+  {{#each this}}
+    <div class="card">
+        <h3 class="card-header"></h3>
+        <section class="comment card-body">
+            <div class="text">
+                {{comment_text}}
+            </div>
+            <div class="meta">
+                -{{user.username}}, {{format_date created_at}}
+            </div>
+        </section>
     </div>
+  {{/each}}
 </div>
