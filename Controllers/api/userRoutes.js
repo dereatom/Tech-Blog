@@ -52,7 +52,9 @@ router.get('/:id', (req, res) => {
 
 // POST /api/users
 router.post('/', (req, res) => {
+   
    User.create({
+      name: req.body.name,
       username: req.body.username,
       email: req.body.email,
       password: req.body.password
@@ -72,6 +74,7 @@ router.post('/', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+   console.log("HHHHHHH", req.body)
    User.findOne({
      where: {
        email: req.body.email
