@@ -23,6 +23,17 @@ const postData = [{
     }
 ];
 
-const seedPosts = () => Post.bulkCreate(postData);
+// const seedPosts = () => Post.bulkCreate(postData);
 
+// module.exports = seedPosts;
+
+const seedPosts = () => {
+    postData.forEach(item=> {
+        Post.create({
+            title: item.title,
+            content: item.content,
+            user_id: item.user_id,
+         })
+    })
+}
 module.exports = seedPosts;

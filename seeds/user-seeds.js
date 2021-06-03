@@ -38,6 +38,6 @@ const seedUsers = () => {
          })
     })
 }
-   
+// const seedUsers = () => User.bulkCreate(userData);
 
 module.exports = seedUsers;

@@ -22,6 +22,17 @@ const commentData = [{
     }
 ];
 
-const seedComments = () => Comment.bulkCreate(commentData);
+// const seedComments = () => Comment.bulkCreate(commentData);
 
+// module.exports = seedComments;
+const seedComments = () => {
+    commentData.forEach(item=> {
+        Comment.create({
+            comment_text: item.comment_text,
+            user_id: item.user_id,
+            post_id: item.post_id,
+           
+    })
+})
+}
 module.exports = seedComments;
