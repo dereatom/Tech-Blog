@@ -63,11 +63,12 @@ p {
     display: block;
     margin: 5px 0;
     border-radius: var(--border-radius);
-    color: white;
+    color: rgb(22, 18, 18);
     border: none;
     outline: none;
     background-color: var(--light-dark);
     transform: translate(-1px, -1px);
+    
 }
 
 .btn:hover {
