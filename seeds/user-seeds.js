@@ -27,17 +27,6 @@ const userData = [
         password: 'password1234'
     }
 ];
-
-// const seedUsers = () => {
-//     userData.forEach(item=> {
-//         User.create({
-//             name: item.name,
-//             username: item.username,
-//             email: item.email,
-//             password: item.password
-//          })
-//     })
-// }
 const seedUsers = () => User.bulkCreate(userData, {individualHooks: true});
 
  module.exports = seedUsers;
