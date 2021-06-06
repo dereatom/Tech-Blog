@@ -16,7 +16,12 @@
   ##Acceptance Criteria
   All acceptance criteria was met.
   ## Description
-  AS A developer who writes about tech, I WANT a CMS-style blog site. SO THAT I can publish articles, blog posts, and my thoughts and opinions.AS A developer who writes about tech, I WANT a CMS-style blog site. SO THAT I can publish articles, blog posts, and my thoughts and opinions.
+  AS A developer who writes about tech, I WANT a CMS-style blog site. SO THAT I can publish articles, blog posts, and my thoughts and opinions. AS A developer who writes about tech, I WANT a CMS-style blog site. SO THAT I can publish articles, blog posts, and my thoughts and opinions.                                                                   
+
+  [Deployed functional URL](https://quiet-fortress-06819.herokuapp.com/)
+
+  [Heroku deployed URL](https://dereatom.github.io/Tech-Blog/)
+  
   
   ## Installation
   I used `express-handlebars`, `MySQL2`, `Sequelize`, `dotenv package`, `bcrypt package`,`express-session`, `connect-session-sequelize` and `NPM install` for bassic functioning. 
