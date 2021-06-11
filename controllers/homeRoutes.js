@@ -94,10 +94,8 @@ router.get('/logout', (req, res) => {
 
    if (req.session.logged_in) {
       req.session.destroy();
-
-    
     }
-    res.redirect("/")
+    res.redirect("/dashboard")
    
 });
 module.exports = router;
