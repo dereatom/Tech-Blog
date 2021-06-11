@@ -93,15 +93,15 @@ router.get('/:id', (req, res) => {
     });
 });
 // update a post
-router.put('/:id', withAuth, (req, res) => {
+router.put('/:id', (req, res) => {
   Post.update(
     {
-      title: req.body.title
+      title: req.body.title,
+      content: req.body.content,
+      user_id: req.body.user_id 
     },
     {
-      where: {
-        id: req.params.id
-      }
+      where: {id: req.params.id}
     }).then(postData => {
       if (!postData) {
         res.status(404).json({ message: 'No post found with this id' });
