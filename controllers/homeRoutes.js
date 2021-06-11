@@ -90,5 +90,14 @@ router.get('/post/:id', (req, res) => {
        res.status(500).json(err);
      });
 });
+router.get('/logout', (req, res) => {
 
+   if (req.session.logged_in) {
+      req.session.destroy();
+
+    
+    }
+    res.redirect("/")
+   
+});
 module.exports = router;
