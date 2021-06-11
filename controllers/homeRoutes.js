@@ -90,12 +90,20 @@ router.get('/post/:id', (req, res) => {
        res.status(500).json(err);
      });
 });
-router.get('/logout', (req, res) => {
-
+router.post('/logout', (req, res) => {
+   console.log(`\n Logged in: ${req.session.logged_in}  \n`);
+   
    if (req.session.logged_in) {
-      req.session.destroy();
-    }
-    res.redirect("/dashboard")
+       res.render('login');
+   }
    
 });
+// router.get('/logout', (req, res) => {
+
+//    if (req.session.logged_in) {
+//       req.session.destroy();
+//     }
+//     res.redirect("/dashboard")
+   
+// });
 module.exports = router;
