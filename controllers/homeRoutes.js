@@ -46,6 +46,7 @@ router.get('/login', (req, res) => {
  
    res.render('login');
 });
+
 router.get('/signup', (req, res) => {
    res.render('signup');
 });
@@ -91,11 +92,11 @@ router.get('/post/:id', (req, res) => {
      });
 });
 router.post('/logout', (req, res) => {
- console.log(`\n Logged in: ${req.session.logged_in}  \n`);
+//  console.log(`\n Logged in: ${req.session.logged_in}  \n`);
    
-   if (req.session.logged_in) {
-       res.redirect('/dashboard');
+   if (req.session.loggedIn) {
+       res.redirect('/login');
    }
-   res.render('login');
+   res.render('dashboard');
 });
 module.exports = router;

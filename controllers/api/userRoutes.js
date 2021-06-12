@@ -106,7 +106,7 @@ router.post('/login', (req, res) => {
 
 //  allow users to log out
  router.post('/logout', (req, res) => {
-   if (req.session.logged_in) {
+   if (req.body.loggedIn) {
       req.session.destroy(() => {
         res.status(204).end();
       });
