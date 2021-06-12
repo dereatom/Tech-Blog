@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
         attributes: ['username']
       }
     ]
-  }).then(postData => res.json(postData))
+  }).then(postData => res.json(postData.reverse))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -93,7 +93,7 @@ router.get('/:id', (req, res) => {
     });
 });
 // update a post
-router.put('/:id', (req, res) => {
+router.put('/:id',  withAuth, (req, res) => {
   Post.update(
     {
       title: req.body.title,
