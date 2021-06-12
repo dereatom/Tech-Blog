@@ -106,16 +106,23 @@ router.post('/login', (req, res) => {
  });
 
  // allow users to log out
- router.post('/logout', (req, res) => {
+//  router.post('/logout', (req, res) => {
+//    if (req.session.logged_in) {
+//       req.session.destroy(() => {
+//         res.status(204).end();
+//       });
+//     }else {
+//       res.status(404).end();
+//     }
+// });
+router.post('/logout', (req, res) => {
+   console.log(`\n Logged in: ${req.session.logged_in}  \n`);
+   
    if (req.session.logged_in) {
-      req.session.destroy(() => {
-        res.status(204).end();
-      });
-    }else {
-      res.status(404).end();
-    }
+       res.render('login');
+   }
+   
 });
-
 // PUT /api/users/1
 router.put('/:id', (req, res) => {
    User.update(req.body, {
