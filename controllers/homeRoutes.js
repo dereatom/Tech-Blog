@@ -92,7 +92,7 @@ router.get('/post/:id', (req, res) => {
      });
 });
 router.post('/logout', (req, res) => {
-//  console.log(`\n Logged in: ${req.session.logged_in}  \n`);
+//  console.log(`\n Logged in: ${req.session.loggedIn}  \n`);
    
    if (req.session.loggedIn) {
        res.redirect('/login');
