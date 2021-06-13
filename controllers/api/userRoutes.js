@@ -106,51 +106,8 @@ router.post('/login', (req, res) => {
 
 //  allow users to log out
  router.post('/logout', (req, res) => {
-   if (req.body.loggedIn) {
       req.session.destroy(() => {
         res.status(204).end();
       });
-    }else {
-      res.status(404).end();
-    }
 });
-// router.put('/:id', (req, res) => {
-//    User.update(req.body, {
-//       individualHooks: true,
-//       where: {
-//          id: req.params.id
-//       }
-//    }).then(userData => {
-//          if (!userData[0]) {
-//             res.status(404).json({ message: 'No user found with this id '});
-//             return;
-//          }
-//          res.json(userData);
-//       })
-//       .catch(err => {
-//          console.log(err);
-//          res.status(500).json(err);
-//       });
-// });
-
-// // DELETE /api/users/1
-// router.delete('/:id', (req, res) => {
-//    User.destroy({
-//       where: {
-//          id: req.params.id
-//       }
-
-//    }).then(userData => {
-//          if (!userData) {
-//             res.status(404).json({ message: 'No user found with this id' });
-//             return;
-//          }
-//          res.json(userData);
-//       })
-//       .catch(err => {
-//          console.log(err);
-//          res.status(500).json(err);
-//       });
-// });
-
 module.exports = router;
