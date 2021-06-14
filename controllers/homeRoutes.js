@@ -29,8 +29,7 @@ router.get('/', (req, res) => {
    }).then(postData => {
          console.log(postData[0]);
          const posts = postData.map(post => post.get({ plain: true }));
-         res.render('homepage', { 
-            posts,loggedIn: req.session.loggedIn});
+         res.render('homepage', {posts});
       })
       .catch(err => {
          console.log(err);
@@ -76,26 +75,18 @@ router.get('/post/:id', (req, res) => {
          attributes: ['username']
        }
      ]
-   }).then(PostData => {
-       if (!PostData) {
+   }).then(postData => {
+       if (!postData) {
          res.status(404).json({ message: 'No post found with this id' });
          return;
        }
  
-       const post = PostData.get({ plain: true });
+       const post = postData.get({ plain: true });
        res.render('single-post', {post});
          
      }).catch(err => {
        console.log(err);
        res.status(500).json(err);
      });
-});
-router.post('/logout', (req, res) => {
-//  console.log(`\n Logged in: ${req.session.loggedIn}  \n`);
-   
-   if (req.session.loggedIn) {
-       res.redirect('/login');
-   }
-   res.render('dashboard');
 });
 module.exports = router;
