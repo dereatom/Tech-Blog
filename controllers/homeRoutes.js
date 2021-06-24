@@ -27,7 +27,6 @@ router.get('/', (req, res) => {
          }
       ]
    }).then(postData => {
-         console.log(postData[0]);
          const posts = postData.map(post => post.get({ plain: true }));
          res.render('homepage', {posts});
       })
@@ -82,7 +81,7 @@ router.get('/post/:id', (req, res) => {
        }
  
        const post = postData.get({ plain: true });
-       res.render('single-post', {post});
+       res.render('Single-post', {post});
          
      }).catch(err => {
        console.log(err);
